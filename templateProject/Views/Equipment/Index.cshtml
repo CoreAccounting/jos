@@ -1,0 +1,495 @@
+﻿@model templateProject.Model.UserModel
+
+@using templateProject.Model
+@using templateProject.Helper
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Iddle";
+}
+
+
+@section ScriptInHeader{
+    @Scripts.Render("~/Script/DataTable")
+    @Scripts.Render("~/Script/FormUnobtrusive")
+    <style>
+        #Grid td {
+            white-space: nowrap;
+        }
+    </style>
+}
+<div class="panel-header">
+    <div class="page-inner border-bottom py-5">
+        <div class="d-flex align-items-left flex-column flex-md-row">
+            <h5 class="pb-2 fw-bold"><i class="fas fa-user"></i> Master Equipment</h5>
+            <div class="ml-md-auto py-2 py-md-0">
+                <button class="btn btn-primary btn-round btn-add" id="BtnAdd">Tambah Equipment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-inner mt--5">
+    <div class="row mt--2">
+        <div class="col-md-12">
+            <div class="card full-height">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Vessel Name
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="searchByOfficialName" id="searchByOfficialName" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Voyage No
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="searchByOfficialName" id="searchByOfficialName" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Date
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="date" name="datepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Unloader
+                                        <div class="input-group">
+                                            <div class="select2-input">
+                                                <select id="basic3" name="basic" class="form-control">
+                                                    <option value="">&nbsp;</option>
+                                                    <optgroup label="Select Unloader">
+                                                        <option value="AK">PPIC</option>
+                                                        <option value="HI">test</option>
+                                                    </optgroup>
+                                                   
+
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Shift
+                                        <div class="input-group">
+                                            <div class="select2-input">
+                                                <select id="Shift" name="basic" class="form-control">
+                                                    <option value="">&nbsp;</option>
+                                                    <optgroup label="Select Shift">
+                                                        <option value="AK">Shift A (00.00-08.00)</option>
+                                                        <option value="HI">Shift B (08.01-16.00)</option>
+                                                        <option value="HI">Shift C (16-01-24.00)</option>
+                                                    </optgroup>
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Loader 1/2
+                                        <div class="input-group">
+                                            <div class="select2-input">
+                                                <select id="basic4" name="basic" class="form-control">
+                                                    <option value="">&nbsp;</option>
+                                                    <optgroup label="Select Loader 1/2">
+                                                        <option value="AK">Commerical</option>
+                                                        <option value="HI">Not Commerical</option>
+                                                    </optgroup>
+                                                  
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Regu
+                                        <div class="input-group">
+                                            <div class="select2-input">
+                                                <select id="regu" name="basic" class="form-control">
+                                                    <option value="">&nbsp;</option>
+                                                    <optgroup label="Select Regu">
+                                                        <option value="AK">CK</option>
+                                                        <option value="HI">KB</option>
+                                                        <option value="HI">SB</option>
+                                                    </optgroup>
+                                                    
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Start
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="start" name="timepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        End
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="end" name="timepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt--2">
+        <div class="col-md-12">
+            <div class="card full-height">
+                <div class="card-body">
+                    <button class="btn btn-primary btn-round btn-add" id="expander">expand</button>
+                    <button class="btn btn-primary btn-round btn-add" id="collapser">collapse</button>
+                    <div class="col-md-12">
+                        <table id="basic" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Object</th>
+                                    <th scope="col">Before</th>
+                                    <th scope="col">After</th>
+                                    <th scope="col">Total</th>
+
+                                </tr>
+                            </thead>
+                            <tr data-node-id="1">
+                                <td>Unloader</td>
+
+                            </tr>
+                            <tr data-node-id="1.1" data-node-pid="1">
+                                <td>RH Comp</td>
+
+                            </tr>
+                            <tr data-node-id="1.1.1" data-node-pid="1.1">
+                                <td>1A</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                            </tr>
+                            <tr data-node-id="1.1.2" data-node-pid="1.1">
+                                <td>1B</td>
+                                <td>text of 1.1.2</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                            </tr>
+
+                            <tr data-node-id="1.1.2" data-node-pid="1.1">
+                                <td>2A</td>
+                                <td>text of 1.1.2</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                            </tr>
+
+                            <tr data-node-id="1.1.2" data-node-pid="1.1">
+                                <td>2C</td>
+                                <td>text of 1.1.2</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                            </tr>
+
+                        </table>
+
+                        <table id="basic2" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Object</th>
+                                    <th scope="col">Standart</th>
+                                    <th scope="col">In</th>
+                                    <th scope="col">Leave</th>
+                                    <th scope="col">Permition</th>
+                                    <th scope="col">disp</th>
+                                    <th scope="col">Training</th>
+
+                                </tr>
+                            </thead>
+                            <tr data-node-id="1">
+                                <td>Man Power</td>
+
+                            </tr>
+                            <tr data-node-id="1.1" data-node-pid="1">
+                                <td>Permanent</td>
+
+                            </tr>
+                            <tr data-node-id="1.1.1" data-node-pid="1.1">
+                                <td>Operator</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                            </tr>
+                            <tr data-node-id="1.1.2" data-node-pid="1.1">
+                                <td>Foreman</td>
+                                <td>text of 1.1.2</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                            </tr>
+
+                            <tr data-node-id="1.1.2" data-node-pid="1.1">
+                                <td>Section Head</td>
+                                <td>text of 1.1.2</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                                <td>text of 1.1.1</td>
+                            </tr>
+
+
+                        </table>
+
+                        <table id="x" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Object</th>
+                                    <th scope="col">Standart</th>
+                                    <th scope="col">In</th>
+
+
+                                </tr>
+                            </thead>
+                            <tr data-node-id="1">
+                                <td>Outsource</td>
+
+                            </tr>
+                            <tr data-node-id="1.1" data-node-pid="1">
+                                <td>TKM (UKA)</td>
+                                <td>text of 1.1.2</td>
+                                <td>text of 1.1.2</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ModalManage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" id="ModalContentManage">
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+      $('#basic').simpleTreeTable({
+    expander: $('#expander'),
+    collapser: $('#collapser'),
+    store: 'session',
+    storeKey: 'simple-tree-table-basic'
+  });
+
+              $('#basic2').simpleTreeTable({
+    expander: $('#expander'),
+    collapser: $('#collapser'),
+    store: 'session',
+    storeKey: 'simple-tree-table-basic'
+              });
+
+    $('#x').simpleTreeTable({
+    expander: $('#expander'),
+    collapser: $('#collapser'),
+    store: 'session',
+    storeKey: 'simple-tree-table-basic'
+  });
+    </script>
+    <script>
+
+        $('#date').datetimepicker({
+            format: 'MM/DD/YYYY',
+        });
+
+        $('#start').datetimepicker({
+            format: 'HH:mm',
+        });
+
+        $('#end').datetimepicker({
+            format: 'HH:mm',
+        });
+
+        $('#Shift').select2({
+            theme: "bootstrap"
+        });
+        $('#regu').select2({
+            theme: "bootstrap"
+        });
+        $('#basic3').select2({
+            theme: "bootstrap"
+        });
+        $('#basic4').select2({
+            theme: "bootstrap"
+        });
+        $('#basic5').select2({
+            theme: "bootstrap"
+        });
+
+        $('#basic6').select2({
+            theme: "bootstrap"
+        });
+    </script>
+    <script>
+        var ModalManage = "#ModalManage";
+        var ModalContentManage = "#ModalContentManage";
+        var Grid = "#Grid";
+        var FormSearch = "#FormSearch";
+        var BtnAdd = "#BtnAdd";
+
+        var dataTable = $(Grid).DataTable({
+                "processing": true,
+                "serverSide": true,
+                "pageLength": '@Configs.PerPage',
+                "ajax": {
+                    "url": "@Url.Content("~/User/GridRead")",
+                    'data': function (data) {
+                        // Append to data
+                        data.searchByOfficialName = $('#searchByOfficialName').val();
+                        data.searchByUsername = $('#searchByUsername').val();
+                    }
+                },
+                "columns": [
+                    {
+                        "data": null,
+                        render: function (data, type, row) {
+                            return '<button type="button" mode="edit" class="btn btn-icon btn-link btn-edit" data-target="' + ModalManage + '"><i class="fa fa-pencil-alt"></i></button> <button type="button" class="btn btn-icon btn-link btn-danger btn-delete" mode="delete"><i class="fa fa-trash-alt"></i></button>';
+                        },
+                        "orderable": false,
+                        "width": "85px"
+                    },
+                    { "data": "UserName" },
+                    { "data": "OfficialName" },
+                    { "data": "Nik" },
+                    { "data": "Email" },
+                    { "data": "GroupUserName" },
+                    { "data": "GroupUserName" },
+                ],
+                "order": [[1, "asc"]],
+                "sDom": 'lrtip',
+                "createdRow": function (row, data, index) {
+                    if ($("#AuthAllowDelete").val() == "False") {
+                        $(row).find('.btn-delete').remove();
+                    }
+
+                    if ($("#AuthAllowUpdate").val() == "False") {
+                        $(row).find('.btn-edit').remove();
+                    }
+                }
+        });
+
+        $(document).ready(function () {
+            if ($("#AuthAllowCreate").val() == "False") {
+                $(".btn-add").remove()
+            }
+
+            $(BtnAdd).on('click', function () {
+                toggleLoading();
+                $(ModalContentManage).html("");
+                $(ModalContentManage).load('@Url.Content("~/IddleTime/Manage?")' + 'id=0'
+                , function (response, status, xhr) {
+                    toggleLoading();
+                    if (status == "error") {
+                        showNotification("danger", "Failed load page", xhr.status + ' ' + xhr.statusText)
+                    } else {
+                        $(ModalManage).modal('show');
+
+                    }
+                });
+            })
+
+            $(Grid + ' tbody').on('click', 'button', function () {
+                var data = dataTable.row($(this).parents('tr')).data();
+                if ($(this).attr("mode") == "edit") {
+                    toggleLoading();
+                    $(ModalContentManage).html("");
+                    $(ModalContentManage).load('@Url.Content("~/User/Manage?")' + 'id=' + data.UserID
+                    , function (response, status, xhr) {
+                        toggleLoading();
+                        if (status == "error") {
+                            showNotification("danger", "Failed load page", xhr.status + ' ' + xhr.statusText)
+                        } else {
+                            $(ModalManage).modal('show');
+                        }
+                    });
+
+                } else {
+                    if (confirm("Are you Sure")) {
+                        toggleLoading();
+                        $.ajax({
+                            url: '@Url.Content("~/User/Delete")',
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: "application/json",
+                            data: JSON.stringify({ id: data.UserID }),
+                            error: function (er) {
+                                showNotification("danger", "Failed", er.textStatus)
+                                toggleLoading();
+                            },
+                            success: function (data) {
+                                if (data.Error.length > 0) {
+                                    AjaxForm_showNotification(data.Error);
+                                } else {
+                                    showNotification("success", "Success", "Data telah dihapus")
+                                    dataTable.draw();
+                                }
+                                toggleLoading();
+                            }
+                        });
+                    }
+                }
+            });
+
+            $(FormSearch).submit(function (event) {
+                dataTable.draw();
+                return false;
+            });
+        });
+    </script>
+}

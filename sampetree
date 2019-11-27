@@ -1,0 +1,394 @@
+@model templateProject.Model.UserModel
+
+@using templateProject.Model
+@using templateProject.Helper
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Iddle";
+}
+
+
+@section ScriptInHeader{
+    @Scripts.Render("~/Script/DataTable")
+    @Scripts.Render("~/Script/FormUnobtrusive")
+    <style>
+        #Grid td {
+            white-space: nowrap;
+        }
+    </style>
+}
+<div class="panel-header">
+    <div class="page-inner border-bottom py-5">
+        <div class="d-flex align-items-left flex-column flex-md-row">
+            <h5 class="pb-2 fw-bold"><i class="fas fa-user"></i> Master Iddle</h5>
+            <div class="ml-md-auto py-2 py-md-0">
+                <button class="btn btn-primary btn-round btn-add" id="BtnAdd">Tambah Iddle</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-inner mt--5">
+    <div class="row mt--2">
+        <div class="col-md-12">
+            <div class="card full-height">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Vessel Name
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="searchByOfficialName" id="searchByOfficialName" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Voyage No
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="searchByOfficialName" id="searchByOfficialName" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Date
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="date" name="datepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Unloader
+                                        <div class="input-group">
+                                            <div class="select2-input">
+                                                <select id="basic3" name="basic" class="form-control">
+                                                    <option value="">&nbsp;</option>
+                                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                                        <option value="AK">Alaska</option>
+                                                        <option value="HI">Hawaii</option>
+                                                    </optgroup>
+                                                    <optgroup label="Pacific Time Zone">
+                                                        <option value="CA">California</option>
+                                                        <option value="NV">Nevada</option>
+                                                        <option value="OR">Oregon</option>
+                                                        <option value="WA">Washington</option>
+                                                    </optgroup>
+                                                  
+                                                  
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Shift
+                                        <div class="input-group">
+                                            <div class="select2-input">
+                                                <select id="basic" name="basic" class="form-control">
+                                                    <option value="">&nbsp;</option>
+                                                    <optgroup label="Select Shift">
+                                                        <option value="AK">Shift A</option>
+                                                        <option value="HI">Shift B</option>
+                                                        <option value="HI">Shift c</option>
+                                                    </optgroup>
+                                                   
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Loader 1/2
+                                        <div class="input-group">
+                                            <div class="select2-input">
+                                                <select id="basic4" name="basic" class="form-control">
+                                                    <option value="">&nbsp;</option>
+                                                    <optgroup label="Alaskan/Hawaiian Time Zone">
+                                                        <option value="AK">Alaska</option>
+                                                        <option value="HI">Hawaii</option>
+                                                    </optgroup>
+                                                    <optgroup label="Pacific Time Zone">
+                                                        <option value="CA">California</option>
+                                                        <option value="NV">Nevada</option>
+                                                        <option value="OR">Oregon</option>
+                                                        <option value="WA">Washington</option>
+                                                    </optgroup>
+                                                 
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        Start
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="datepicker" name="timepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        End
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="datepicker2" name="timepicker">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt--2">
+        <div class="col-md-12">
+            <div class="card full-height">
+                <div class="card-body">
+                    <div class="col-md-12">
+                        <table id="opened" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Area</th>
+                                    <th scope="col">From</th>
+                                    <th scope="col">To</th>
+                                    <th scope="col">Total Hours</th>
+                                    <th scope="col">Problem</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+
+                            <tr data-node-id="1">
+                                <td>Machine / Equipment</td>
+                                <td>test</td>
+                            </tr>
+                            <tr data-node-id="1.1" data-node-pid="1">
+                                <td>Unloader 1 A (401 A)</td>
+                                <td>text of 1.1</td>
+                            </tr>
+                            <tr data-node-id="1.1.1" data-node-pid="1.1">
+                                <td>Machine / Equipment Parts</td>
+                                <td>text of 1.1.1</td>
+                            </tr>
+                            <tr data-node-id="1.1.1.1" data-node-pid="1.1.1">
+                                <td>Noozle</td>
+                                <td>text of 1.1.1.1</td>
+                            </tr>
+
+                            <tr data-node-id="1.1.1.1" data-node-pid="1.1.1">
+                                <td>Vertical Pipe</td>
+                                <td>text of 1.1.1.1</td>
+                            </tr>
+
+                            <tr data-node-id="1.1.1.1" data-node-pid="1.1.1">
+                                <td>Vertical Pipe</td>
+                                <td>text of 1.1.1.1</td>
+                            </tr>
+
+                            <tr>
+                                <th>Mark</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>Otto</td>
+                                <td>Otto</td>
+                                <td>Otto</td>
+                            </tr>
+                            <tr>
+                        </table>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="ModalManage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content" id="ModalContentManage">
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+ <script>
+      $('#opened').simpleTreeTable({
+    opened: [1, 1.1]
+  });
+    </script>
+    <script>
+
+         $('#date').datetimepicker({
+            format: 'MM/DD/YYYY',
+         });
+
+        $('#datepicker').datetimepicker({
+            format: 'HH:mm',
+        });
+
+        $('#datepicker2').datetimepicker({
+             format: 'HH:mm',
+        });
+
+        $('#basic').select2({
+            theme: "bootstrap"
+        });
+        $('#basic2').select2({
+            theme: "bootstrap"
+        });
+        $('#basic3').select2({
+            theme: "bootstrap"
+        });
+        $('#basic4').select2({
+            theme: "bootstrap"
+        });
+        $('#basic5').select2({
+            theme: "bootstrap"
+        });
+
+        $('#basic6').select2({
+            theme: "bootstrap"
+        });
+    </script>
+    <script>
+        var ModalManage = "#ModalManage";
+        var ModalContentManage = "#ModalContentManage";
+        var Grid = "#Grid";
+        var FormSearch = "#FormSearch";
+        var BtnAdd = "#BtnAdd";
+
+        var dataTable = $(Grid).DataTable({
+                "processing": true,
+                "serverSide": true,
+                "pageLength": '@Configs.PerPage',
+                "ajax": {
+                    "url": "@Url.Content("~/User/GridRead")",
+                    'data': function (data) {
+                        // Append to data
+                        data.searchByOfficialName = $('#searchByOfficialName').val();
+                        data.searchByUsername = $('#searchByUsername').val();
+                    }
+                },
+                "columns": [
+                    {
+                        "data": null,
+                        render: function (data, type, row) {
+                            return '<button type="button" mode="edit" class="btn btn-icon btn-link btn-edit" data-target="' + ModalManage + '"><i class="fa fa-pencil-alt"></i></button> <button type="button" class="btn btn-icon btn-link btn-danger btn-delete" mode="delete"><i class="fa fa-trash-alt"></i></button>';
+                        },
+                        "orderable": false,
+                        "width": "85px"
+                    },
+                    { "data": "UserName" },
+                    { "data": "OfficialName" },
+                    { "data": "Nik" },
+                    { "data": "Email" },
+                    { "data": "GroupUserName" },
+                    { "data": "GroupUserName" },
+                ],
+                "order": [[1, "asc"]],
+                "sDom": 'lrtip',
+                "createdRow": function (row, data, index) {
+                    if ($("#AuthAllowDelete").val() == "False") {
+                        $(row).find('.btn-delete').remove();
+                    }
+
+                    if ($("#AuthAllowUpdate").val() == "False") {
+                        $(row).find('.btn-edit').remove();
+                    }
+                }
+        });
+
+        $(document).ready(function () {
+            if ($("#AuthAllowCreate").val() == "False") {
+                $(".btn-add").remove()
+            }
+
+            $(BtnAdd).on('click', function () {
+                toggleLoading();
+                $(ModalContentManage).html("");
+                $(ModalContentManage).load('@Url.Content("~/IddleTime/Manage?")' + 'id=0'
+                , function (response, status, xhr) {
+                    toggleLoading();
+                    if (status == "error") {
+                        showNotification("danger", "Failed load page", xhr.status + ' ' + xhr.statusText)
+                    } else {
+                        $(ModalManage).modal('show');
+
+                    }
+                });
+            })
+
+            $(Grid + ' tbody').on('click', 'button', function () {
+                var data = dataTable.row($(this).parents('tr')).data();
+                if ($(this).attr("mode") == "edit") {
+                    toggleLoading();
+                    $(ModalContentManage).html("");
+                    $(ModalContentManage).load('@Url.Content("~/User/Manage?")' + 'id=' + data.UserID
+                    , function (response, status, xhr) {
+                        toggleLoading();
+                        if (status == "error") {
+                            showNotification("danger", "Failed load page", xhr.status + ' ' + xhr.statusText)
+                        } else {
+                            $(ModalManage).modal('show');
+                        }
+                    });
+
+                } else {
+                    if (confirm("Are you Sure")) {
+                        toggleLoading();
+                        $.ajax({
+                            url: '@Url.Content("~/User/Delete")',
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: "application/json",
+                            data: JSON.stringify({ id: data.UserID }),
+                            error: function (er) {
+                                showNotification("danger", "Failed", er.textStatus)
+                                toggleLoading();
+                            },
+                            success: function (data) {
+                                if (data.Error.length > 0) {
+                                    AjaxForm_showNotification(data.Error);
+                                } else {
+                                    showNotification("success", "Success", "Data telah dihapus")
+                                    dataTable.draw();
+                                }
+                                toggleLoading();
+                            }
+                        });
+                    }
+                }
+            });
+
+            $(FormSearch).submit(function (event) {
+                dataTable.draw();
+                return false;
+            });
+        });
+    </script>
+}
